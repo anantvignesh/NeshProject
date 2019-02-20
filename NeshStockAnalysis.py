@@ -174,7 +174,7 @@ for name in company_list:
 #STOCK DATA ANALYSIS
 for name in company_list:
   stock_data = pd.read_csv('/content/drive/My Drive/DataSet/Nesh/Nesh_StockData/'+name+'_StockData.csv')
-  
+  print(("The Latest Closing Stock Value For "+name+" is : %s\n") %(stock_data['close'][1]))
   fig = plt.figure(figsize = (20,10))
   fig.suptitle(name+' STOCK ANALYSIS (NASDAQ)', fontsize = 20)
 
