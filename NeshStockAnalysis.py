@@ -16,8 +16,8 @@ from google.colab import drive
 
 #------------------Mounting Drive------------------#
 
-drive.mount('/content/drive')
-!ls -l "/content/drive/My Drive/DataSet/HeartDiseasePrediction"
+#drive.mount('/content/drive')
+#!ls -l "/content/drive/My Drive/DataSet/HeartDiseasePrediction"
 
 #------------------Data Scrapping------------------#
 
@@ -68,6 +68,22 @@ for url, name in zip(url_list, company_list):
       content = content + tag
 df_article = pd.DataFrame(latest_news, columns = ['Company','Article Title','Article Link'])
 df_article.to_csv('/content/drive/My Drive/DataSet/ArticleList.csv', index = False)
+
+#Collecting Market Cap Data
+marketcap_url = ["https://finance.yahoo.com/quote/OXY/", "https://finance.yahoo.com/quote/EOG/", "https://finance.yahoo.com/quote/APC/",
+                 "https://finance.yahoo.com/quote/APA/", "https://finance.yahoo.com/quote/COP/", "https://finance.yahoo.com/quote/PXD/"]
+marketcap_data = []
+for url, name in zip(marketcap_url, company_list):
+  temp = []
+  html = urlopen(url)
+  soup = BeautifulSoup(html, 'lxml')
+  marketcap_tag = soup.find_all('span', attrs={'class': 'Trsdu(0.3s)'})
+  for tag in marketcap_tag:
+    tag = (BeautifulSoup(str(tag),"lxml").get_text()).strip()
+    temp.append(tag)
+  marketcap_data.append([name,temp[9].replace("B","")])
+marketcap_dataset = pd.DataFrame(marketcap_data, columns = ['Company','Market Cap'])
+marketcap_dataset.to_csv('/content/drive/My Drive/DataSet/Nesh/MarketCapData.csv', index = False)
 
 #Collecting Net Flow Cash Data
 netcashflow_url_list = ["https://finance.yahoo.com/quote/OXY/cash-flow/", "https://finance.yahoo.com/quote/EOG/cash-flow/",
@@ -191,6 +207,17 @@ for name in company_list:
 
   plt.show()
   print("\n")
+  
+#MARKET CAP DATA ANALYSIS
+
+revenuedata = pd.read_csv('/content/drive/My Drive/DataSet/Nesh/MarketCapData.csv')
+revenuedata.plot(kind='bar')
+plt.ylabel('MARKET CAP IN BILLIONS')
+plt.xlabel('COMPANY')
+plt.title('MARKET CAP ANALYSIS (Yahoo Finance)', fontsize = 20)
+plt.xticks(np.arange(6), ('OXY', 'EOG', 'APC', 'APA', 'COP', 'PXD'))
+
+plt.show()
 
 #NET CASH FLOW DATA ANALYSIS
 for name in company_list:
