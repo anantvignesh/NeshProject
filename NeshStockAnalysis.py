@@ -169,7 +169,7 @@ for name in company_list:
   stockdata['date'] = pd.to_datetime(stockdata['date'])
   stockdata.to_csv('/content/drive/My Drive/DataSet/Nesh/Nesh_StockData/'+name+'_StockData.csv', index = False)
 
-#------------------Data Analytics------------------#
+#------------------Data Analysis------------------#
 
 #STOCK DATA ANALYSIS
 for name in company_list:
@@ -342,4 +342,4 @@ for url, name in zip(call_url, company_list):
     else:
       print(name+' has a normal latest news')
 
-#------------------Data Analytics------------------#
+#------------------Data Analysis------------------#
