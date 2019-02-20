@@ -16,8 +16,8 @@ from google.colab import drive
 
 #------------------Mounting Drive------------------#
 
-#drive.mount('/content/drive')
-#!ls -l "/content/drive/My Drive/DataSet/HeartDiseasePrediction"
+drive.mount('/content/drive')
+!ls -l "/content/drive/My Drive/DataSet/HeartDiseasePrediction"
 
 #------------------Data Scrapping------------------#
 
